@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Калькулятор продуктов</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Калькулятор продуктов</h1>
+      <div class="inputs-container">
+        <input type="text" class="input-name" placeholder="Наименование" />
+        <input type="text" class="input-price" placeholder="Цена" />
+        <input type="text" class="input-amount" placeholder="Кол-во" />
+        <button>Добавить</button>
+      </div>
+      <table>
+        <tr>
+          <th>Наименование</th>
+          <th>Цена</th>
+          <th>Кол-во</th>
+          <th>Сумма</th>
+          <th>Удалить</th>
+        </tr>
+        <tr>
+          <td>Яблоко</td>
+          <td>100</td>
+          <td>2</td>
+          <td>200</td>
+          <td>УДалить</td>
+        </tr>
+      </table>
+      <div class="result">Общий итог: <span class="total">0</span></div>
+    </div>
+
+    <script src="./src/main.js"></script>
+  </body>
+</html>
