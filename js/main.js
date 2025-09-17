@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
     productsList.push(newProduct);
     createHtmlProductElement(newProduct);
     // console.log(productsList);
+
+    inputName.value = "";
+    inputPrice.value = "";
+    inputAmount.value = "";
   }
 
   function createHtmlProductElement(element) {
@@ -40,13 +44,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Название
     let cellName = document.createElement("td");
-    cellName = element.title;
+    cellName.textContent = element.title;
 
     // Цена
-    let cellPrice = (cellName.textContent = element.title);
-    cellPrice = element.price;
-    cellRow.append();
-    productsTable.append(cellRow);
+    let cellPrice = document.createElement("td");
+    cellPrice.textContent = element.price;
+
+    // Количество
+    let cellAmount = document.createElement("td");
+    cellAmount.textContent = element.amount;
+
+    // Сумма
+    let cellSum = document.createElement("td");
+    cellSum.textContent = Number(element.price) * Number(element.amount);
+
+    // Удаление
+    let cellDelete = document.createElement("td");
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Удалить";
+    cellDelete.appendChild(deleteButton);
+    
+    cellRow.appendChild(cellName);
+    cellRow.appendChild(cellPrice);
+    cellRow.appendChild(cellAmount);
+    cellRow.appendChild(cellSum);
+    cellRow.appendChild(cellDelete);
+    
+    productsTable.appendChild(cellRow);
 
     renderProducts();
   }
@@ -54,12 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderProducts() {
     let thElements = productsTable.querySelectorAll("th");
 
-    thElements.forEach((item) => {
-      console.log(item.tagName);
-
-      if (item.tagName !== "TH") {
-        item.innerHTML == "";
-      }
-    });
+    // Не удалять заголовки
+    // thElements.forEach((item) => {
+    //   if (item.tagName !== "TH") {
+    //     item.remove();
+    //   }
+    // });
   }
 });
