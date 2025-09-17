@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cellDelete.appendChild(deleteBtn);
     cellRow.appendChild(cellDelete);
 
-
     deleteBtn.addEventListener("click", () => {
       productsList = productsList.filter((item) => item.id !== product.id);
       saveToLocalStorage();
@@ -90,9 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     productsTable.appendChild(cellRow);
 
     totalSum();
-
-    // const delBtn = document.querySelector(".delete-btn");
-    // delBtn.addEventListener("click", deleteProduct(product.id));
   }
   function totalSum() {
     let sum = 0;
@@ -102,18 +98,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultDiv.textContent = "Общий итог: " + sum + " руб.";
     totalSumElement.textContent = sum + " рублей";
-
-
-    deleteBtn.addEventListener("click", () => {
-      productsList = productsList.filter((item) => item.id !== product.id);
-      saveToLocalStorage();
-      cellRow.remove();
-    });
-
-    productsTable.appendChild(cellRow);
-
-    // const delBtn = document.querySelector(".delete-btn");
-    // delBtn.addEventListener("click", deleteProduct(product.id));
-
   }
 });
