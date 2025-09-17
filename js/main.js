@@ -7,7 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultDiv = document.querySelector(".result");
   const totalSumElement = document.querySelector(".total");
 
-  let productsList = localStorage.getItem("productsList") || [];
+  let productsList = [];
+
+  if (localStorage.getItem("productsList")) {
+    productsList = JSON.parse(localStorage.getItem("productsList"));
+  }
+
+  productsList.forEach((product) => renderProducts(product));
 
   addProductButton.addEventListener("click", addProduct);
 
@@ -30,59 +36,68 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     productsList.push(newProduct);
-    createHtmlProductElement(newProduct);
-    // console.log(productsList);
+
+    saveToLocalStorage();
+    totalSum();
+    renderProducts(newProduct);
 
     inputName.value = "";
     inputPrice.value = "";
     inputAmount.value = "";
   }
 
-  function createHtmlProductElement(element) {
-    // Создание элемента в таблицу
-    let cellRow = document.createElement("tr");
-
-    // Название
-    let cellName = document.createElement("td");
-    cellName.textContent = element.title;
-
-    // Цена
-    let cellPrice = document.createElement("td");
-    cellPrice.textContent = element.price;
-
-    // Количество
-    let cellAmount = document.createElement("td");
-    cellAmount.textContent = element.amount;
-
-    // Сумма
-    let cellSum = document.createElement("td");
-    cellSum.textContent = Number(element.price) * Number(element.amount);
-
-    // Удаление
-    let cellDelete = document.createElement("td");
-    let deleteButton = document.createElement("button");
-    deleteButton.textContent = "Удалить";
-    cellDelete.appendChild(deleteButton);
-    
-    cellRow.appendChild(cellName);
-    cellRow.appendChild(cellPrice);
-    cellRow.appendChild(cellAmount);
-    cellRow.appendChild(cellSum);
-    cellRow.appendChild(cellDelete);
-    
-    productsTable.appendChild(cellRow);
-
-    renderProducts();
+  function saveToLocalStorage() {
+    localStorage.setItem("productsList", JSON.stringify(productsList));
   }
 
-  function renderProducts() {
-    let thElements = productsTable.querySelectorAll("th");
+  function renderProducts(product) {
+    const cellRow = document.createElement("tr");
+    cellRow.id = product.id;
 
-    // Не удалять заголовки
-    // thElements.forEach((item) => {
-    //   if (item.tagName !== "TH") {
-    //     item.remove();
-    //   }
-    // });
+    const cellTitle = document.createElement("td");
+    cellTitle.textContent = product.title;
+    cellRow.appendChild(cellTitle);
+
+    const cellPrice = document.createElement("td");
+    cellPrice.textContent = product.price;
+    cellRow.appendChild(cellPrice);
+
+    const cellAmount = document.createElement("td");
+    cellAmount.textContent = product.amount;
+    cellRow.appendChild(cellAmount);
+
+    const cellSum = document.createElement("td");
+    cellSum.textContent = Number(product.amount) * Number(product.price);
+    cellRow.appendChild(cellSum);
+
+    const cellDelete = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.textContent = "Удалить";
+    cellDelete.appendChild(deleteBtn);
+    cellRow.appendChild(cellDelete);
+
+    deleteBtn.addEventListener("click", () => {
+      productsList = productsList.filter((item) => item.id !== product.id);
+      saveToLocalStorage();
+      totalSum();
+      cellRow.remove();
+    });
+
+    productsTable.appendChild(cellRow);
+
+    totalSum();
+
+    // const delBtn = document.querySelector(".delete-btn");
+    // delBtn.addEventListener("click", deleteProduct(product.id));
+  }
+  function totalSum() {
+    let sum = 0;
+    for (let i = 0; i < productsList.length; i++) {
+      sum += Number(productsList[i].price) * Number(productsList[i].amount);
+    }
+
+    resultDiv.textContent = "Общий итог: " + sum + " руб.";
+    totalSumElement.textContent = sum + " рублей";
   }
 });
