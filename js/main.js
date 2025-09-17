@@ -36,7 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     productsList.push(newProduct);
+
+    totalSum();
+
     saveToLocalStorage();
+
     renderProducts(newProduct);
 
     inputName.value = "";
@@ -75,6 +79,31 @@ document.addEventListener("DOMContentLoaded", () => {
     cellDelete.appendChild(deleteBtn);
     cellRow.appendChild(cellDelete);
 
+
+    deleteBtn.addEventListener("click", () => {
+      productsList = productsList.filter((item) => item.id !== product.id);
+      saveToLocalStorage();
+      totalSum();
+      cellRow.remove();
+    });
+
+    productsTable.appendChild(cellRow);
+
+    totalSum();
+
+    // const delBtn = document.querySelector(".delete-btn");
+    // delBtn.addEventListener("click", deleteProduct(product.id));
+  }
+  function totalSum() {
+    let sum = 0;
+    for (let i = 0; i < productsList.length; i++) {
+      sum += Number(productsList[i].price) * Number(productsList[i].amount);
+    }
+
+    resultDiv.textContent = "Общий итог: " + sum + " руб.";
+    totalSumElement.textContent = sum + " рублей";
+
+
     deleteBtn.addEventListener("click", () => {
       productsList = productsList.filter((item) => item.id !== product.id);
       saveToLocalStorage();
@@ -85,5 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // const delBtn = document.querySelector(".delete-btn");
     // delBtn.addEventListener("click", deleteProduct(product.id));
+
   }
 });
