@@ -68,6 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
     cellSum.textContent = Number(product.amount) * Number(product.price);
     cellRow.appendChild(cellSum);
 
+    const cellDelete = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.textContent = "Удалить";
+    cellDelete.appendChild(deleteBtn);
+    cellRow.appendChild(cellDelete);
+
+    deleteBtn.addEventListener("click", () => {
+      productsList = productsList.filter((item) => item.id !== product.id);
+      saveToLocalStorage();
+      cellRow.remove();
+    });
+
     productsTable.appendChild(cellRow);
 
     // const delBtn = document.querySelector(".delete-btn");
