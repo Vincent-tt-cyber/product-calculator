@@ -1,0 +1,27 @@
+{
+  "name": "product-calculator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vincent-tt-cyber/product-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vincent-tt-cyber/product-calculator/issues"
+  },
+  "homepage": "https://github.com/Vincent-tt-cyber/product-calculator#readme",
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
