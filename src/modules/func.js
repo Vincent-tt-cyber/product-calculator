@@ -6,3 +6,7 @@ export const createProduct = (title, price, amount) => {
     amount,
   };
 };
+
+export const renderProducts = (arr) => {
+  console.log(arr);
+};
