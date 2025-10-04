@@ -1,4 +1,4 @@
-import { createProduct, renderProducts } from "./modules/func";
+import { createProduct } from "./modules/func";
 
 document.addEventListener("DOMContentLoaded", () => {
   let inputTitle = document.querySelector(".input-title");
@@ -18,28 +18,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkEmptyList();
 
-  addProductBtn.addEventListener("click", () => {
+  addProductBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
     let title = inputTitle.value;
     let price = inputPrice.value;
     let amount = inputAmount.value;
 
     let newProduct = createProduct(title, price, amount);
+    products.push(newProduct);
+    renderProducts(newProduct);
 
-    console.log(newProduct);
+    inputTitle.value = "";
+    inputPrice.value = "";
+    inputAmount.value = "";
+
+    checkEmptyList();
   });
 
   function checkEmptyList() {
     if (products.length == 0) {
-      let emptyHtml = `<div class="empty-list">
+      let emptyHtml = `<div id="empty-list">
         <p>Список продуктов пуст</p>
         <small>Добавьте хотябы один продукт</small>
         </div>`;
 
       tableContent.innerHTML = emptyHtml;
     }
+    if (products.length > 0) {
+      const emptyListElem = document.querySelector("#empty-list ");
+
+      emptyListElem ? emptyListElem.remove() : null;
+    }
   }
 
   function renderProducts(product) {
-    // let productTitle = document.createElement("div");
+    const productItemRow = document.createElement("div");
+    productItemRow.classList.add("product-item");
+    productItemRow.id = product.id;
+
+    const productTitle = document.createElement("div");
+    productTitle.textContent = product.title;
+    productItemRow.appendChild(productTitle);
+
+    const productPrice = document.createElement("div");
+    productPrice.textContent = product.price;
+    productItemRow.appendChild(productPrice);
+
+    const productAmount = document.createElement("div");
+    productAmount.textContent = product.amount;
+    productItemRow.appendChild(productAmount);
+
+    const productSum = document.createElement("div");
+    productSum.textContent = Number(product.amount) * Number(product.price);
+    productItemRow.appendChild(productSum);
+
+    const productDeleteCell = document.createElement("div");
+    const productDeleteBtn = document.createElement("button");
+    productDeleteCell.classList.add("del-cell");
+    productDeleteBtn.textContent = "Удалить";
+    productDeleteBtn.classList.add("button");
+    productDeleteBtn.classList.add("button-delete");
+    productDeleteCell.appendChild(productDeleteBtn);
+    productItemRow.appendChild(productDeleteCell);
+    tableContent.appendChild(productItemRow);
   }
 });

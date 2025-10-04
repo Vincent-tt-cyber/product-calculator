@@ -41,6 +41,17 @@ body {
       background-color: rgb(22, 95, 22);
     }
   }
+  &-delete {
+    background-color: red;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    &:active {
+      background-color: rgb(153, 3, 3);
+    }
+  }
 }
 .header {
   display: flex;
@@ -85,14 +96,48 @@ body {
   }
   &-content {
     padding: 10px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    display: flex;
+    flex-direction: column;
+    // div {
+    //   flex: 1;
+    // }
   }
 }
 
-.empty-list {
+#empty-list {
   display: block;
   text-align: center;
   p {
     font-size: 20px;
     margin: 0 0 5px 0;
+  }
+}
+
+.del-cell {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  &:last-child {
+    border-bottom: none;
+  }
+  div {
+    text-align: center;
+    flex: 1;
+    padding: 10px 0px;
+    border-right: 2px solid #ccc;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 }
