@@ -7,6 +7,6 @@ export const createProduct = (title, price, amount) => {
   };
 };
 
-export const renderProducts = (arr) => {
+export const createHtmlProduct = (product) => {
   console.log(arr);
 };
