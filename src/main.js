@@ -1,4 +1,4 @@
-import { createProduct } from "./modules/func";
+import { createProduct, renderProducts } from "./modules/func";
 
 document.addEventListener("DOMContentLoaded", () => {
   let inputTitle = document.querySelector(".input-title");
@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("productsList")) {
     products = JSON.parse(localStorage.getItem("productsList"));
   }
+
+  products.forEach((product) => renderProducts(product));
 
   checkEmptyList();
 
@@ -36,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
       tableContent.innerHTML = emptyHtml;
     }
   }
-  if (products.length > 0) {
+
+  function renderProducts(product) {
+    // let productTitle = document.createElement("div");
   }
 });
