@@ -6,7 +6,6 @@ export const createProduct = (title, price, amount) => {
     amount,
   };
 };
-
-export const createHtmlProduct = (product) => {
-  console.log(arr);
+export const deleteProduct = (products, id) => {
+  return products.filter((item) => item.id !== id);
 };
