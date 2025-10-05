@@ -1,4 +1,4 @@
-import { createProduct, deleteProduct } from "./modules/func";
+import { createProduct, deleteProduct, totalSumProducts } from "./modules/func";
 
 document.addEventListener("DOMContentLoaded", () => {
   let inputTitle = document.querySelector(".input-title");
@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let addProductBtn = document.querySelector(".button-add");
 
   let tableContent = document.querySelector(".table-content");
+
+  let totalSumElem = document.querySelector(".total-sum");
 
   let products = [];
 
@@ -34,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     products.push(newProduct);
     renderProducts(newProduct);
     saveProducts();
+    handleTotalSum();
 
     inputTitle.value = "";
     inputPrice.value = "";
@@ -66,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (productHtmlElem) {
       productHtmlElem.remove();
     }
-
+    handleTotalSum();
     checkEmptyList();
   }
 
@@ -110,5 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
     productItemRow.appendChild(productDeleteCell);
 
     tableContent.appendChild(productItemRow);
+    handleTotalSum();
+  }
+
+  function handleTotalSum() {
+    let sum = totalSumProducts(products);
+
+    totalSumElem.textContent = `Итог: ${sum} руб.`;
   }
 });
