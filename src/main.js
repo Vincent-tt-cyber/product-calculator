@@ -1,4 +1,4 @@
-import { createProduct } from "./modules/func";
+import { createProduct, deleteProduct } from "./modules/func";
 
 document.addEventListener("DOMContentLoaded", () => {
   let inputTitle = document.querySelector(".input-title");
@@ -25,9 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let price = inputPrice.value;
     let amount = inputAmount.value;
 
+    if (!title || !price || !amount) {
+      alert("Заполните пожалуйста все поля!");
+      return;
+    }
+
     let newProduct = createProduct(title, price, amount);
     products.push(newProduct);
     renderProducts(newProduct);
+    saveProducts();
 
     inputTitle.value = "";
     inputPrice.value = "";
@@ -50,6 +56,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       emptyListElem ? emptyListElem.remove() : null;
     }
+  }
+
+  function handleDeleteProduct(productID) {
+    products = deleteProduct(products, productID);
+    saveProducts();
+
+    const productHtmlElem = document.getElementById(productID);
+    if (productHtmlElem) {
+      productHtmlElem.remove();
+    }
+
+    checkEmptyList();
+  }
+
+  function saveProducts() {
+    localStorage.setItem("productsList", JSON.stringify(products));
   }
 
   function renderProducts(product) {
@@ -79,8 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     productDeleteBtn.textContent = "Удалить";
     productDeleteBtn.classList.add("button");
     productDeleteBtn.classList.add("button-delete");
+
+    productDeleteBtn.addEventListener("click", () =>
+      handleDeleteProduct(product.id)
+    );
+
     productDeleteCell.appendChild(productDeleteBtn);
     productItemRow.appendChild(productDeleteCell);
+
     tableContent.appendChild(productItemRow);
   }
 });
